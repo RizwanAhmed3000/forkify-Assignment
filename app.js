@@ -7,10 +7,19 @@ const productDetail = document.querySelector('.productDetail')
 function fetchRecipeList(value) {
     const fetchData = fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${value}`);
     fetchData
-        .then((resp) => resp.json())
+        .then((resp) => {
+            if(resp.status == 'fail'){
+                throw new Error(`${resp.message}`)
+            } else{
+                return resp.json()
+            }
+        })
         .then((data) => {
             console.log(data)
             mappingData(data.data.recipes)
+        })
+        .catch((err)=>{
+            productDetail.innerHTML = err
         })
 }
 
@@ -78,9 +87,9 @@ function singleItemDataInUi(data) {
 
 function ingredients(ingredients) {
     const dataToUi = ingredients.map((obj) => {
-        const list = `<div class="items d-flex align-items-baseline">
+        const list = `<div class="items d-flex align-items-baseline p-2">
                     <i class="fa-solid fa-check me-2"></i>
-                    <p>${obj.quantity} ${obj.unit} ${obj.description}</p>
+                    <p class="text-break">${obj.quantity} ${obj.unit} ${obj.description}</p>
                 </div>`
 
         return list
