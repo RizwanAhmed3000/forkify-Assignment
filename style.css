@@ -6,12 +6,27 @@
 
 .left{
     background-color: #f8f9fa;
-    /* height: 100vh; */
+    height: 100vh;
+    overflow: scroll;
 }
 
-.left ul{
-    list-style: none;
+::-webkit-scrollbar {
+    width: 10px;
 }
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(204, 204, 204); 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
 .right{
     background-color: white;
@@ -55,7 +70,9 @@
 
 #ingredientsList{
     width: 100%;
+    padding: 5px;
     height: 288px;
+    overflow: scroll;
     /* border: 1px solid blue; */
 }
 
