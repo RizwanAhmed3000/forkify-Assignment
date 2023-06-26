@@ -16,7 +16,11 @@ function fetchRecipeList(value) {
         })
         .then((data) => {
             console.log(data)
-            mappingData(data.data.recipes)
+            if(data.results == 0){
+                throw new Error(`result not found`)
+            } else{
+                mappingData(data.data.recipes)
+            }
         })
         .catch((err)=>{
             productDetail.innerHTML = err
