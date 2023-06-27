@@ -32,12 +32,12 @@ function mappingData(data) {
     const dataIntoUi = data.map((item) => {
         const list = ` <div class="foodList d-flex mb-4 py-3 px-2" onclick="getData('${item.id}')">
         <div class="image me-4">
-            <img src=${item.image_url} alt="hi" width="90px">
+            <img class="rounded-circle" src=${item.image_url} alt="image here" width="72px">
         </div>
         <div class="text">
             <h5 id="heading">${item.title}</h5>
             <p>${item.publisher}</p>
-        </div>
+        </div> 
     </div>`
         return list
     })
@@ -47,7 +47,7 @@ function mappingData(data) {
 
 function singleItemDataInUi(data) {
     const productObjPath = data.data.recipe
-    const product = `<div class="card mb-3">
+    const product = `<div class="card mb-3" style="background-color: beige; border: none;">
     <div class="img">
         <img src=${productObjPath.image_url}
             class="card-img-top image-fit" alt="Recipe Image">
@@ -64,7 +64,7 @@ function singleItemDataInUi(data) {
     </div>
 </div>
 
-<div class="card ingredientCard mb-3" style="width: 100%; height: 400px;">
+<div class="card ingredientCard mb-3" style="width: 100%; height: 400px; background-color: beige; border: none;">
                     <div class="card-body d-flex flex-column flex-wrap">
                         <h4 class="card-title text-center my-4 recipeIng">Recipe Ingredients</h4>
                         <div id="ingredientsList" class="d-flex flex-column flex-wrap">
@@ -73,7 +73,7 @@ function singleItemDataInUi(data) {
                     </div>
                 </div>
 
-<div class="card mb-3">
+<div class="card mb-3" style="background-color: beige; border: none;">
     <div class="card-body">
         <h4 class="card-title text-center my-4 howToCook">How To Cook It</h4>
         <p class="card-text text-center">
