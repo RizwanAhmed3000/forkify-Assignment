@@ -4,27 +4,24 @@ const searchBtn = document.querySelector('.searchBtn')
 const productDetail = document.querySelector('.productDetail')
 
 
-function fetchRecipeList(value) {
-    const fetchData = fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${value}`);
-    fetchData
-        .then((resp) => {
-            if(resp.status == 'fail'){
-                throw new Error(`${resp.message}`)
-            } else{
-                return resp.json()
-            }
-        })
-        .then((data) => {
-            console.log(data)
-            if(data.results == 0){
-                throw new Error(`result not found`)
-            } else{
-                mappingData(data.data.recipes)
-            }
-        })
-        .catch((err)=>{
-            productDetail.innerHTML = err
-        })
+async function fetchRecipeList(value) {
+    try {
+        const fetchData = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes?search=${value}`);
+        if (fetchData.status == 'fail') {
+            throw new Error(`${fetchData.message}`)
+        }
+        const respInJson = await fetchData.json()
+        console.log(respInJson)
+        if(respInJson.result == 0){
+            throw new Error(`result not found`)
+        } else{
+            mappingData(respInJson.data.recipes)
+        }
+
+    } catch (error) {
+        console.error(error)
+        productDetail.innerHTML == error
+    }
 }
 
 function mappingData(data) {
@@ -107,14 +104,16 @@ function filteringData() {
     searchBar.value = "";
 }
 
-function getData(id) {
-    const fetchData = fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
-    fetchData
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            singleItemDataInUi(data)
-        })
+async function getData(id) {
+    try {
+        const fetchData = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
+        console.log(fetchData)
+        const dataInJson = await fetchData.json();
+        console.log(dataInJson)
+        singleItemDataInUi(dataInJson)
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 searchBtn.addEventListener('click', filteringData)
